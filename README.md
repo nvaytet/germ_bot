@@ -1,3 +1,3 @@
-# lunarlander bot
+# Germ bot
 
-Template bot for the Lunar Lander game
+Template bot for the Cholerama game
