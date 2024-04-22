@@ -16,3 +16,23 @@ class Bot:
         self.color = None
         self.pattern = np.random.randint(0, 2, size=(14, 14))
         # self.pattern = "filler.png"
+
+    def run(self, iteration, board, tokens):
+        """
+        This method will be called by the game engine on each iteration.
+
+        Parameters:
+        ----------
+        iteration : int
+            The current iteration number.
+        board : numpy array
+            The current state of the board.
+        tokens : list
+            The list of tokens on the board.
+        """
+        if tokens >= 5:
+            x = [1, 2, 0, 1, 2]
+            y = [2, 1, 0, 0, 0]
+            return x, y
+
+        return np.random.randint(0, 14), np.random.randint(0, 14)
