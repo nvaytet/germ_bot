@@ -31,8 +31,6 @@ class Bot:
             The list of tokens on the board.
         """
         if tokens >= 5:
-            x = [1, 2, 0, 1, 2]
-            y = [2, 1, 0, 0, 0]
+            x = np.array([1, 2, 0, 1, 2]) + np.random.randint(10, 450)
+            y = np.array([2, 1, 0, 0, 0]) + np.random.randint(10, 350)
             return x, y
-
-        return np.random.randint(0, 14), np.random.randint(0, 14)
