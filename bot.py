@@ -55,6 +55,7 @@ class FillerBot:
     This is the bot that will be instantiated for the competition.
 
     The pattern can be either a numpy array or a path to an image.
+    In the image, white color means 0 and any other color means 1.
     """
 
     def __init__(self):
