@@ -1,8 +1,9 @@
 # SPDX-License-Identifier: BSD-3-Clause
 from typing import Optional, Tuple
 
-from cholerama import helpers
 import numpy as np
+
+from cholerama import helpers
 
 
 class Bot:
@@ -15,7 +16,10 @@ class Bot:
     def __init__(self):
         self.name = "YeastieBoys"  # This is your team name
         self.color = None
-        self.pattern = np.random.randint(0, 2, size=(14, 14))
+        self.pattern = np.zeros(14 * 14, dtype=int)
+        cells = np.random.choice(len(self.pattern), 100, replace=False)
+        self.pattern[cells] = 1
+        self.pattern = self.pattern.reshape(14, 14)
         # self.pattern = "filler.png"
 
     def run(
@@ -61,7 +65,12 @@ class FillerBot:
     def __init__(self):
         self.name = "YeastieBoys"  # This is your team name
         self.color = None
-        self.pattern = np.random.randint(0, 2, size=(14, 14))
+        # self.pattern = np.random.randint(0, 2, size=(14, 14))
+        self.pattern = np.zeros(14 * 14, dtype=int)
+        cells = np.random.choice(len(self.pattern), 100, replace=False)
+        self.pattern[cells] = 1
+        self.pattern = self.pattern.reshape(14, 14)
+
         # self.pattern = "filler.png"
         self.filler = helpers.image_to_array("filler.png")
         self.cost = self.filler.sum()
@@ -111,7 +120,10 @@ class PufferBot:
     def __init__(self):
         self.name = "PufferBoys"  # This is your team name
         self.color = None
-        self.pattern = np.random.randint(0, 2, size=(18, 36))
+        self.pattern = np.zeros(14 * 14, dtype=int)
+        cells = np.random.choice(len(self.pattern), 100, replace=False)
+        self.pattern[cells] = 1
+        self.pattern = self.pattern.reshape(14, 14)
         # self.pattern = "filler.png"
         self.puffer = helpers.image_to_array("puffer.png")
         self.cost = self.puffer.sum()
@@ -145,10 +157,8 @@ class PufferBot:
                 return None
             ind = np.random.randint(0, npatches)
 
-            op = np.random.choice([None, np.flipud, np.fliplr, np.rot90])
-            a = self.puffer
-            if op is not None:
-                a = op(a)
+            k = np.random.randint(0, 4)
+            a = np.rot90(self.puffer, k=k)
 
             y, x = np.where(a > 0)
             x += empty_patches[ind, 1]
