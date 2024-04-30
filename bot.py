@@ -33,10 +33,7 @@ class Bot:
         self.color = None  # Optional
 
         # If we make the pattern too sparse, it just dies quickly
-        self.pattern = np.zeros(14 * 14, dtype=int)
-        cells = np.random.choice(len(self.pattern), 100, replace=False)
-        self.pattern[cells] = 1
-        self.pattern = self.pattern.reshape(14, 14)
+        self.pattern = np.random.randint(0, 2, (12, 12))
         # The pattern can also be just an image
         # self.pattern = "mypattern.png"
 
@@ -66,6 +63,7 @@ class Bot:
             npatches = len(empty_patches)
             if npatches == 0:
                 return None
+            # Make a glider
             ind = np.random.randint(0, npatches)
             x = np.array([1, 2, 0, 1, 2]) + empty_patches[ind, 1]
             y = np.array([2, 1, 0, 0, 0]) + empty_patches[ind, 0]
