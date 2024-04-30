@@ -3,7 +3,7 @@ from typing import Optional, Tuple
 
 import numpy as np
 
-from cholerama import helpers
+from cholerama import helpers, Positions
 
 AUTHOR = "YeastieBoys"  # This is your team name
 
@@ -69,4 +69,4 @@ class Bot:
             ind = np.random.randint(0, npatches)
             x = np.array([1, 2, 0, 1, 2]) + empty_patches[ind, 1]
             y = np.array([2, 1, 0, 0, 0]) + empty_patches[ind, 0]
-            return x, y
+            return Positions(x=x, y=y)
