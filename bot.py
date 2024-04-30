@@ -12,7 +12,8 @@ class Bot:
     """
     This is the bot that will be instantiated for the competition.
 
-    The pattern can be either a numpy array or a path to an image.
+    The pattern can be either a numpy array or a path to an image (white means 0,
+    black means 1).
     """
 
     def __init__(self, number: int, name: str, x: int, y: int):
@@ -34,7 +35,7 @@ class Bot:
 
         # If we make the pattern too sparse, it just dies quickly
         self.pattern = np.random.randint(0, 2, (12, 12))
-        # The pattern can also be just an image
+        # The pattern can also be just an image (0=white, 1=black)
         # self.pattern = "mypattern.png"
 
     def iterate(
