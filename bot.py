@@ -44,7 +44,9 @@ class Bot:
 
         # If we make the pattern too sparse, it just dies quickly
         xy = np.random.randint(0, 12, size=(2, 100))
-        self.pattern = Positions(x=xy[0], y=xy[1])
+        self.pattern = Positions(
+            x=xy[1] + patch_size[1] // 2, y=xy[0] + patch_size[0] // 2
+        )
         # The pattern can also be just an image (0=white, 1=black)
         # self.pattern = "mypattern.png"
         # self.pattern = np.zeros((3, 3), dtype=int)
