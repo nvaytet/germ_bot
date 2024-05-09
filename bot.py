@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: BSD-3-Clause
-from typing import Optional, Tuple
+
+from typing import Optional
 
 import numpy as np
 
@@ -34,13 +35,16 @@ class Bot:
         self.color = None  # Optional
 
         # If we make the pattern too sparse, it just dies quickly
-        self.pattern = np.random.randint(0, 2, (12, 12))
+        # self.pattern = np.random.randint(0, 2, (50, 50))
         # The pattern can also be just an image (0=white, 1=black)
         # self.pattern = "mypattern.png"
+        self.pattern = np.zeros((3, 3), dtype=int)
+        for i, j in [(1, 2), (2, 1), (0, 0), (1, 0), (2, 0)]:
+            self.pattern[j, i] = 1
 
     def iterate(
         self, iteration: int, board: np.ndarray, tokens: int
-    ) -> Optional[Tuple[np.ndarray, np.ndarray]]:
+    ) -> Optional[Positions]:
         """
         This method will be called by the game engine on each iteration.
 
@@ -55,8 +59,7 @@ class Bot:
 
         Returns:
         -------
-        tuple
-            A tuple containing the x and y coordinates of the new cells.
+        An object containing the x and y coordinates of the new cells.
         """
         if tokens >= 5:
             # Pick a random empty patch of size 3x3
