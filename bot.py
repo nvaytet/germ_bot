@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
-from typing import Optional
+from typing import Optional, Tuple
 
 import numpy as np
 
@@ -17,7 +17,13 @@ class Bot:
     black means 1).
     """
 
-    def __init__(self, number: int, name: str, x: int, y: int):
+    def __init__(
+        self,
+        number: int,
+        name: str,
+        patch_location: Tuple[int, int],
+        patch_size: Tuple[int, int],
+    ):
         """
         Parameters:
         ----------
@@ -25,22 +31,25 @@ class Bot:
             The player number. Numbers on the board equal to this value mark your cells.
         name: str
             The player's name
-        x: int
-            The starting x position of the lower-left corner of the pattern
-        y: int
-            The starting y position of the lower-left corner of the pattern
+        patch_location: tuple
+            The i, j row and column indices of the patch in the grid
+        patch_size: tuple
+            The size of the patch
         """
         self.number = number  # Mandatory: this is your number on the board
         self.name = name  # Mandatory: player name
         self.color = None  # Optional
+        self.patch_location = patch_location
+        self.patch_size = patch_size
 
         # If we make the pattern too sparse, it just dies quickly
-        # self.pattern = np.random.randint(0, 2, (50, 50))
+        xy = np.random.randint(0, 12, size=(2, 100))
+        self.pattern = Positions(x=xy[0], y=xy[1])
         # The pattern can also be just an image (0=white, 1=black)
         # self.pattern = "mypattern.png"
-        self.pattern = np.zeros((3, 3), dtype=int)
-        for i, j in [(1, 2), (2, 1), (0, 0), (1, 0), (2, 0)]:
-            self.pattern[j, i] = 1
+        # self.pattern = np.zeros((3, 3), dtype=int)
+        # for i, j in [(1, 2), (2, 1), (0, 0), (1, 0), (2, 0)]:
+        #     self.pattern[j, i] = 1
 
     def iterate(
         self, iteration: int, board: np.ndarray, tokens: int
