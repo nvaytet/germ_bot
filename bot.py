@@ -7,6 +7,7 @@ import numpy as np
 from cholerama import helpers, Positions
 
 AUTHOR = "YeastieBoys"  # This is your team name
+SEED = None  # Set this to a value to make runs reproducible
 
 
 class Bot:
@@ -42,16 +43,15 @@ class Bot:
         self.patch_location = patch_location
         self.patch_size = patch_size
 
+        self.rng = np.random.default_rng(SEED)
+
         # If we make the pattern too sparse, it just dies quickly
-        xy = np.random.randint(0, 12, size=(2, 100))
+        xy = self.rng.integers(0, 12, size=(2, 100))
         self.pattern = Positions(
             x=xy[1] + patch_size[1] // 2, y=xy[0] + patch_size[0] // 2
         )
         # The pattern can also be just an image (0=white, 1=black)
         # self.pattern = "mypattern.png"
-        # self.pattern = np.zeros((3, 3), dtype=int)
-        # for i, j in [(1, 2), (2, 1), (0, 0), (1, 0), (2, 0)]:
-        #     self.pattern[j, i] = 1
 
     def iterate(
         self, iteration: int, board: np.ndarray, patch: np.ndarray, tokens: int
@@ -81,7 +81,7 @@ class Bot:
             if nregions == 0:
                 return None
             # Make a glider
-            ind = np.random.randint(0, nregions)
+            ind = self.rng.integers(0, nregions)
             x = np.array([1, 2, 0, 1, 2]) + empty_regions[ind, 1]
             y = np.array([2, 1, 0, 0, 0]) + empty_regions[ind, 0]
             return Positions(x=x, y=y)
