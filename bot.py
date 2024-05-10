@@ -54,7 +54,7 @@ class Bot:
         #     self.pattern[j, i] = 1
 
     def iterate(
-        self, iteration: int, board: np.ndarray, tokens: int
+        self, iteration: int, board: np.ndarray, patch: np.ndarray, tokens: int
     ) -> Optional[Positions]:
         """
         This method will be called by the game engine on each iteration.
@@ -64,7 +64,9 @@ class Bot:
         iteration : int
             The current iteration number.
         board : numpy array
-            The current state of the board.
+            The current state of the entire board.
+        patch : numpy array
+            The current state of the players own patch on the board.
         tokens : list
             The list of tokens on the board.
 
@@ -73,13 +75,13 @@ class Bot:
         An object containing the x and y coordinates of the new cells.
         """
         if tokens >= 5:
-            # Pick a random empty patch of size 3x3
-            empty_patches = helpers.find_empty_patches(board, (3, 3))
-            npatches = len(empty_patches)
-            if npatches == 0:
+            # Pick a random empty region of size 3x3
+            empty_regions = helpers.find_empty_regions(patch, (3, 3))
+            nregions = len(empty_regions)
+            if nregions == 0:
                 return None
             # Make a glider
-            ind = np.random.randint(0, npatches)
-            x = np.array([1, 2, 0, 1, 2]) + empty_patches[ind, 1]
-            y = np.array([2, 1, 0, 0, 0]) + empty_patches[ind, 0]
+            ind = np.random.randint(0, nregions)
+            x = np.array([1, 2, 0, 1, 2]) + empty_regions[ind, 1]
+            y = np.array([2, 1, 0, 0, 0]) + empty_regions[ind, 0]
             return Positions(x=x, y=y)
