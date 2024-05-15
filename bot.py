@@ -66,7 +66,7 @@ class Bot:
         board : numpy array
             The current state of the entire board.
         patch : numpy array
-            The current state of the players own patch on the board.
+            The current state of the player's own patch on the board.
         tokens : list
             The list of tokens on the board.
 
@@ -75,7 +75,7 @@ class Bot:
         An object containing the x and y coordinates of the new cells.
         """
         if tokens >= 5:
-            # Pick a random empty region of size 3x3
+            # Pick a random empty region of size 3x3 inside my patch
             empty_regions = helpers.find_empty_regions(patch, (3, 3))
             nregions = len(empty_regions)
             if nregions == 0:
