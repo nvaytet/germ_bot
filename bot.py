@@ -4,7 +4,7 @@ from typing import Optional, Tuple
 
 import numpy as np
 
-from cholerama import helpers, Positions
+from cholerama import Positions, helpers
 
 AUTHOR = "YeastieBoys"  # This is your team name
 SEED = None  # Set this to a value to make runs reproducible
